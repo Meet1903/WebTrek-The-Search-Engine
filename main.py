@@ -1,9 +1,9 @@
 from elasticsearch import Elasticsearch
-
 import warnings
-
 from bs4 import BeautifulSoup
 import os
+from prepare_data import read_html_files
+
 
 # Suppress InsecureRequestWarning and SecurityWarning
 warnings.filterwarnings("ignore", message="urllib3 v2 only supports OpenSSL 1.1.1+")
@@ -37,7 +37,10 @@ documents = [
 
 # client.search(index="websearch")
 # resp = client.search(index="websearch", query={"match_all": {}})
-resp = client.search(index="websearch", query={"query_string": {"query": "meet AND hey AND hello"}})
-print("Got {} hits:".format(resp["hits"]["total"]["value"]))
-for hit in resp["hits"]["hits"]:
-    print(hit["_source"])
+# resp = client.search(index="websearch", query={"query_string": {"query": "meet AND hey AND hello"}})
+# print("Got {} hits:".format(resp["hits"]["total"]["value"]))
+# for hit in resp["hits"]["hits"]:
+#     print(hit["_source"])
+
+path_to_HTML_files = "/Users/meetdiwan/Documents/GIT/Search-Engine/html_files"
+read_html_files(path_to_HTML_files)
