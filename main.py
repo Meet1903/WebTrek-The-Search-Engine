@@ -1,4 +1,4 @@
-from elasticsearch import Elasticsearch
+from elasticsearch import Elasticsearch, helpers
 import warnings
 from bs4 import BeautifulSoup
 import os
@@ -43,4 +43,6 @@ documents = [
 #     print(hit["_source"])
 
 path_to_HTML_files = "/Users/meetdiwan/Documents/GIT/Search-Engine/html_files"
-read_html_files(path_to_HTML_files)
+bulk_data = read_html_files(path_to_HTML_files)
+# client.bulk(operations=bulk_data, pipeline="ent-search-generic-ingestion")
+helpers.bulk(client, bulk_data)
