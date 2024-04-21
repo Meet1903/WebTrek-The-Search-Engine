@@ -2,6 +2,15 @@ import requests
 from bs4 import BeautifulSoup
 import os
 
+def delete_files_in_folder(folder_path):
+    files = os.listdir(folder_path)
+    
+    for file_name in files:
+        file_path = os.path.join(folder_path, file_name)
+        if os.path.isfile(file_path):
+            os.remove(file_path)
+            print(f"Deleted: {file_path}")
+
 def retrieve_domain_names(file_path):
     domain_names = []
     with open(file_path, 'r') as file:
@@ -28,10 +37,9 @@ def get_urls(domains):
 
     return urls
 
-def save_html(urls, folder):
-    folder_path = folder
+def save_html(urls, folder_path):
     os.makedirs(folder_path, exist_ok=True)
-
+    delete_files_in_folder(folder_path)
     for index, url in enumerate(urls[:1000]):
         if url.startswith("https://") or url.startswith("http://"):
             response = requests.get(url)
