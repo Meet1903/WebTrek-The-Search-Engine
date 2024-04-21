@@ -3,35 +3,10 @@
 <head>
     <title>Web Scraper</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
-    <script>
-        // JavaScript to handle showing and hiding the loading spinner
-        document.getElementById("scraping-form").addEventListener("submit", function() {
-            showLoadingSpinner();
-        });
-
-        function showLoadingSpinner() {
-            var loadingSpinner = document.querySelector(".loader");
-            // document.getElementById("loader").style.display = "block";  
-            console.log("Hey there")
-            loadingSpinner.style.display = "block";
-            container.style.display = "block";
-        }
-
-    </script>
 </head>
 <body>
     
     <h2>Web Scraper</h2>
-    <div class="loader" id="loader"></div>
-    <div class="container" id="container"></div>
-    <form id="scraping-form" method="post">
-        <label for="url">Enter comma separated domains:</label><br>
-        <input type="text" id="url" name="url" required><br>
-        <label for="path">Enter destination folder path:</label><br>
-        <input type="text" id="path" name="path" required><br>
-        <input type="hidden" id="folder_path" name="folder_path">
-
-        <button type="submit" id="scrapper" onclick="showLoadingSpinner()">Scrape</button>
-    </form>
+    <a href="{{ url_for('scrapper') }}"><button>Go to Scraper</button></a>
 </body>
 </html>
