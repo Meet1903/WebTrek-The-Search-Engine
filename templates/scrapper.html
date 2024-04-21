@@ -3,19 +3,6 @@
 <head>
     <title>Web Scraper</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
-    <script>
-        // JavaScript to handle showing and hiding the loading spinner
-        document.getElementById("scraping-form").addEventListener("submit", function() {
-            showLoadingSpinner();
-        });
-
-        function showLoadingSpinner() {
-            var loadingSpinner = document.querySelector(".loader");
-            loadingSpinner.style.display = "block";
-            container.style.display = "block";
-        }
-
-    </script>
 </head>
 <body>
     <h2>Web Scraper</h2>
@@ -30,5 +17,18 @@
 
         <button type="submit" id="scrapper">Scrape</button>
     </form>
+    <script>
+        // JavaScript to handle showing and hiding the loading spinner
+        document.getElementById("scraping-form").addEventListener("submit", function() {
+            showLoadingSpinner();
+        });
+
+        function showLoadingSpinner() {
+            var loadingSpinner = document.querySelector(".loader");
+            loadingSpinner.style.display = "block";
+            container.style.display = "block";
+        }
+
+    </script>
 </body>
 </html>
