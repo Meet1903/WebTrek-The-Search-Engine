@@ -10,6 +10,14 @@ def is_valid_url(url):
 
 @app.route("/", methods=["GET", "POST"])
 def index():
+    return render_template("index.html")
+
+@app.route("/scrapper")
+def scrapper():
+    return render_template("scrapper.html")
+
+@app.route("/scrapper", methods=["POST"])
+def scrape():
     if request.method == "POST":
         # Get form data
         domains = request.form.get("url")
@@ -20,10 +28,8 @@ def index():
         print(folder)
         save_html(urls, folder)
         insert_data_elastic(folder)
+        delete_files_in_folder(folder)
         return "Scraping completed successfully!" 
-
-    # Render the template with input fields
-    return render_template("index.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
