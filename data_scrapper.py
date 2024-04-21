@@ -11,11 +11,11 @@ def retrieve_domain_names(file_path):
     return domain_names
 
 def get_urls(domains):
+    urls = []
     for domain in domains:
         # print(domain)
         response = requests.get(domain)
         soup = BeautifulSoup(response.content, 'html.parser')
-        urls = []
 
         for link in soup.find_all('a'):
             if 'href' in link.attrs:
@@ -32,7 +32,7 @@ def save_html(urls, folder):
     folder_path = folder
     os.makedirs(folder_path, exist_ok=True)
 
-    for index, url in enumerate(urls[:100]):
+    for index, url in enumerate(urls[:1000]):
         if url.startswith("https://") or url.startswith("http://"):
             response = requests.get(url)
             if response.status_code == 200:
