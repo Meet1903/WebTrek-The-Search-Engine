@@ -1,48 +1,29 @@
-from elasticsearch import Elasticsearch, helpers
-import warnings
-from bs4 import BeautifulSoup
+from flask import Flask, render_template, request, redirect, url_for
+from data_scrapper import *
+from elastic_logics import insert_data_elastic
 import os
-from prepare_data import read_html_files
 
+app = Flask(__name__)
 
-# Suppress InsecureRequestWarning and SecurityWarning
-warnings.filterwarnings("ignore", message="urllib3 v2 only supports OpenSSL 1.1.1+")
-warnings.filterwarnings("ignore", message="Unverified HTTPS request is being made")
+def is_valid_url(url):
+    return url.startswith("http://") or url.startswith("https://")
 
-client = Elasticsearch(
-  "https://localhost:9200",
-  api_key="YVdaLV9ZNEJaQjY1MGt1aWR5aFI6Z0xSRWFFTTRTSkdXaXZrYWNCZXN2QQ==",
-  verify_certs=False
-)
+@app.route("/", methods=["GET", "POST"])
+def index():
+    if request.method == "POST":
+        # Get form data
+        domains = request.form.get("url")
+        folder = request.form.get("path")
+        domains = domains.replace(" ", "").split(", ")
+        print(domains, folder)
+        urls = get_urls(domains)
+        print(folder)
+        save_html(urls, folder)
+        insert_data_elastic(folder)
+        return "Scraping completed successfully!" 
 
-# API key should have cluster monitor rightps
-# print(client.info())
+    # Render the template with input fields
+    return render_template("index.html")
 
-documents = [
-  { "index": { "_index": "websearch"}},
-  {"name": "Snow Crash", "author": "Neal Stephenson", "release_date": "1992-06-01", "page_count": 470, "_extract_binary_content": True, "_reduce_whitespace": True, "_run_ml_inference": True},
-  { "index": { "_index": "websearch"}},
-  {"name": "Revelation Space", "author": "Alastair Reynolds", "release_date": "2000-03-15", "page_count": 585, "_extract_binary_content": True, "_reduce_whitespace": True, "_run_ml_inference": True},
-  { "index": { "_index": "websearch"}},
-  {"name": "1984", "author": "George Orwell", "release_date": "1985-06-01", "page_count": 328, "_extract_binary_content": True, "_reduce_whitespace": True, "_run_ml_inference": True},
-  { "index": { "_index": "websearch"}},
-  {"name": "Fahrenheit 451", "author": "Ray Bradbury", "release_date": "1953-10-15", "page_count": 227, "_extract_binary_content": True, "_reduce_whitespace": True, "_run_ml_inference": True},
-  { "index": { "_index": "websearch"}},
-  {"name": "Brave New World", "author": "Aldous Huxley", "release_date": "1932-06-01", "page_count": 268, "_extract_binary_content": True, "_reduce_whitespace": True, "_run_ml_inference": True},
-  { "index": { "_index": "websearch"}},
-  {"name": "The Handmaid's Tale", "author": "Margaret Atwood", "release_date": "1985-06-01", "page_count": 311, "_extract_binary_content": True, "_reduce_whitespace": True, "_run_ml_inference": True},
-]
-
-# client.bulk(operations=documents, pipeline="ent-search-generic-ingestion")
-
-# client.search(index="websearch")
-# resp = client.search(index="websearch", query={"match_all": {}})
-# resp = client.search(index="websearch", query={"query_string": {"query": "meet AND hey AND hello"}})
-# print("Got {} hits:".format(resp["hits"]["total"]["value"]))
-# for hit in resp["hits"]["hits"]:
-#     print(hit["_source"])
-
-path_to_HTML_files = "/Users/meetdiwan/Documents/GIT/Search-Engine/html_files"
-bulk_data = read_html_files(path_to_HTML_files)
-# client.bulk(operations=bulk_data, pipeline="ent-search-generic-ingestion")
-helpers.bulk(client, bulk_data)
+if __name__ == "__main__":
+    app.run(debug=True)
