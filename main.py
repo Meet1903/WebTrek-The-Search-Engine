@@ -14,7 +14,7 @@ def index():
         # Get form data
         domains = request.form.get("url")
         folder = request.form.get("path")
-        domains = domains.replace(" ", "").split(", ")
+        domains = domains.replace(" ", "").split(",")
         print(domains, folder)
         urls = get_urls(domains)
         print(folder)
