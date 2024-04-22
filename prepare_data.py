@@ -4,7 +4,6 @@ import os
 import re
 from urllib.parse import urlparse
 
-bulk_data = []
 
 def extract_text_from_html_file(file_path):
     with open(file_path, 'r', encoding='utf-8') as file:
@@ -38,13 +37,15 @@ def extract_text_from_html_file(file_path):
                 "content": text,
             },
         }
-        bulk_data.append(document)
+        return document
     return
 
 def read_html_files(folder_path):
-    html_files = []
+    bulk_data = []
     for filename in os.listdir(folder_path):
         if filename.endswith(".html"):
             file_path = os.path.join(folder_path, filename)
-            extract_text_from_html_file(file_path)
+            document = extract_text_from_html_file(file_path)
+            if document:
+                bulk_data.append(document)
     return bulk_data
