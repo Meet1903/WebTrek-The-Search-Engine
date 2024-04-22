@@ -1,6 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
 import os
+from urllib.parse import urlparse
+
+ignored_domains = ['instagram.com', 'twitter.com', 'youtube.com', 'facebook.com', 'mailto:']
 
 def delete_files_in_folder(folder_path):
     files = os.listdir(folder_path)
@@ -18,23 +21,35 @@ def retrieve_domain_names(file_path):
             domain_names.append(line)
     return domain_names
 
+def unearth_urls(domain):
+    urls = set()
+    parsed_domain = urlparse(domain)
+    response = requests.get(domain)
+    soup = BeautifulSoup(response.content, 'html.parser')
+    for link in soup.find_all('a'):
+        if 'href' in link.attrs:
+            url = link.attrs['href']
+            # print(domain, url)
+            if any(ignored_domain in url for ignored_domain in ignored_domains):
+                continue
+            if url.startswith('/'):
+                urls.add(parsed_domain.scheme + "://" + parsed_domain.netloc + url)
+            if url.startswith(domain):
+                urls.add(url)
+    return list(urls)
+
 def get_urls(domains):
-    urls = []
-    for domain in domains:
-        # print(domain)
-        response = requests.get(domain)
-        soup = BeautifulSoup(response.content, 'html.parser')
-
-        for link in soup.find_all('a'):
-            if 'href' in link.attrs:
-                url = link.attrs['href']
-                print(url)
-                if url.startswith('/'):
-                    urls.append(domain + url)
-                if url.startswith(domain):
-                    urls.append(url)
-
-    return urls
+    counter = 0 
+    while counter < len(domains) and len(set(domains)) < 10000:
+        if any(ignored_domain in domains[counter] for ignored_domain in ignored_domains):
+            counter += 1
+            continue
+        domains.extend(unearth_urls(domains[counter]))
+        counter += 1
+    print(domains)
+    domains = set(domains)
+    return list(domains)
+    
 
 def save_html(urls, folder):
     folder_path = folder
