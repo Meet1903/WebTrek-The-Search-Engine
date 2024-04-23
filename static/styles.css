@@ -133,3 +133,9 @@ input[type="text"] {
     backdrop-filter: blur(8px);
     display: none;
 }
+
+.query-history {
+    text-align: -webkit-center;
+    padding-top: 20px;
+    font-family: "JetBrains Mono",monospace;
+}
