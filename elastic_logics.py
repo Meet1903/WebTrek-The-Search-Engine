@@ -11,7 +11,7 @@ warnings.filterwarnings("ignore", message="Unverified HTTPS request is being mad
 
 client = Elasticsearch(
   "https://localhost:9200",
-  api_key="YVdaLV9ZNEJaQjY1MGt1aWR5aFI6Z0xSRWFFTTRTSkdXaXZrYWNCZXN2QQ==",
+  api_key="YOUR_API_KEY",
   verify_certs=False
 )
 
