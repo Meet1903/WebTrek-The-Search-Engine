@@ -12,6 +12,7 @@
             <button type="submit" class="button-1">Clean History</button>
         </form>
     </div>
+    {% if history %}
     <div class="query-history">
         <table style="border-spacing: 1px;">
             <thead>
@@ -32,6 +33,8 @@
             </tbody>
         </table>
     </div>
-    
+    {% else %}
+    <p style="text-align: -webkit-center;">No query history available.</p>
+    {% endif %}
 </body>
 </html>
