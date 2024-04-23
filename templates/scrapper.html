@@ -11,14 +11,14 @@
     </div>
     <div class="loader" id="loader"></div>
     <div class="container" id="container"></div>
-    <form id="scraping-form" method="post">
+    <form id="scraping-form" method="post" class="regular-form">
         <label for="url">Enter comma separated domains:</label><br>
         <input type="text" id="url" name="url" required><br>
         <label for="path">Enter destination folder path:</label><br>
         <input type="text" id="path" name="path" required><br>
         <input type="hidden" id="folder_path" name="folder_path">
 
-        <button type="submit" id="scrapper">Scrape</button>
+        <button type="submit" id="scrapper" class="submit-button">Scrape</button>
     </form>
     <script>
         // JavaScript to handle showing and hiding the loading spinner

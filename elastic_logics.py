@@ -46,3 +46,9 @@ def fetch_history():
   for hit in resp["hits"]["hits"]:
     queries.append(hit["_source"]['query'])
   return queries
+
+def delete_all_history():
+  try:
+    client.delete_by_query(index=['history'], body={"query": {"match_all": {}}})
+  except:
+    return 'No history available'

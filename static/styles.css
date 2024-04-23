@@ -16,7 +16,7 @@ h2 {
     -webkit-background-clip: text;
 }
 
-form {
+form[class="regular-form"] {
     max-width: 400px;
     margin: 20px auto;
     background-color: #fff;
@@ -42,29 +42,8 @@ input[type="text"] {
 .button-1-container {
     position: relative;
     text-align: center;
+    display: ruby-text;
 }
-/* 
-.button-1 {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-} 
-
-.button-1:hover {
-    background-color: #45a049;
-}
-
-.button-1:active {
-    background-color: #3e8e41;
-    box-shadow: none;
-}*/
 
 .button-1 {
   align-items: center;
@@ -111,7 +90,7 @@ input[type="text"] {
   transform: translateY(2px);
 }
 
-button[type="submit"] {
+.submit-button {
     width: 100%;
     padding: 10px;
     background-color: #4CAF50;
@@ -122,7 +101,7 @@ button[type="submit"] {
     font-size: 16px;
 }
 
-button:hover[type="submit"] {
+.submit-button:hover {
     background-color: #45a049;
 }
 

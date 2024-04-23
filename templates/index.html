@@ -10,10 +10,10 @@
         <a href="{{ url_for('scrapper') }}"><button class="button-1">Go to Scraper</button></a>
         <a href="{{ url_for('history') }}"><button class="button-1">History</button></a>
     </div>
-    <form id="search-bar" method="post">
+    <form id="search-bar" class="regular-form" method="post">
         <label for="query">Enter Query:</label><br>
         <input type="text" id="query" name="query" required><br>
-        <button type="submit" id="search">Search</button>
+        <button type="submit" id="search" class="submit-button">Search</button>
     </form>
     <!-- <label for="words">Final words: {{words}}</label><br> -->
     <label for="data">URLs: {{urls}}</label><br>

@@ -7,7 +7,10 @@
 <body>
     <h2>WebTrek - History</h2>
     <div class="button-1-container">
-    <a href="{{ url_for('index') }}"><button class="button-1">Back to Search Engine</button></a>
+        <a href="{{ url_for('index') }}"><button class="button-1">Back to Search Engine</button></a>
+        <form method="post">
+            <button type="submit" class="button-1">Clean History</button>
+        </form>
     </div>
     <label for="data">Searched queries: {{history}}</label><br>
 </body>

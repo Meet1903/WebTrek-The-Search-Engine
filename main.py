@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 from data_scrapper import get_urls, save_html, delete_files_in_folder
-from elastic_logics import insert_data_elastic, search_on_elastic, insert_query_history, fetch_history
+from elastic_logics import insert_data_elastic, search_on_elastic, insert_query_history, fetch_history, delete_all_history
 from prepare_query import prepare_query
 import os
 
@@ -46,6 +46,11 @@ def scrape():
 def history():
     history = fetch_history()
     return render_template("history.html", history=history)
+
+@app.route("/history", methods=["POST"])
+def clean_history():
+    delete_all_history()
+    return render_template("history.html", history=' ')
 
 if __name__ == "__main__":
     app.run(debug=True)
