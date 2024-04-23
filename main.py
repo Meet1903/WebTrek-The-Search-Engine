@@ -44,13 +44,14 @@ def scrape():
 
 @app.route("/history")
 def history():
-    history = fetch_history()
+    queries, timestamps = fetch_history()
+    history = zip(queries, timestamps)
     return render_template("history.html", history=history)
 
 @app.route("/history", methods=["POST"])
 def clean_history():
     delete_all_history()
-    return render_template("history.html", history=' ')
+    return render_template("history.html", history=None)
 
 if __name__ == "__main__":
     app.run(debug=True)

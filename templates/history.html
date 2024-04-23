@@ -21,11 +21,11 @@
                 </tr>
             </thead>
             <tbody>
-                {% for query in history %}
+                {% for query, timestamp in history %}
                 <tr>
                     <td style="padding: 0px;">
                         <ul style="margin: 1px;">
-                            <li>{{ query }}</li>
+                            <li>{{ query }} - {{timestamp}}</li>
                         </ul>
                     </td>
                 </tr>

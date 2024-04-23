@@ -3,6 +3,7 @@ import warnings
 from bs4 import BeautifulSoup
 import os
 from prepare_data import read_html_files
+import datetime
 
 
 warnings.filterwarnings("ignore", message="urllib3 v2 only supports OpenSSL 1.1.1+")
@@ -34,15 +35,19 @@ def insert_data_elastic(folder):
   helpers.bulk(client, bulk_data)
 
 def insert_query_history(query):
-  document = {'query': query}
+  timestamp = datetime.datetime.now()
+  document = {'query': query, 'timestamp': timestamp}
   client.index(index='history', document=document)
 
 def fetch_history():
-  resp = client.search(index="history", body={"query": {"match_all": {}}})
+  # resp = client.search(index="history", body={"query": {"match_all": {}}})
+  resp = client.search(index="history", body={"query": {"match_all": {}}, "sort": [{"timestamp": {"order": "desc"}}], "size": 15})
   queries = []
+  timestamps = []
   for hit in resp["hits"]["hits"]:
     queries.append(hit["_source"]['query'])
-  return queries
+    timestamps.append(hit["_source"]['timestamp'])
+  return queries, timestamps
 
 def delete_all_history():
   try:
