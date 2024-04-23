@@ -35,3 +35,14 @@ def insert_data_elastic(folder):
 
   # Inserting all data
   helpers.bulk(client, bulk_data)
+
+def insert_query_history(query):
+  document = {'query': query}
+  client.index(index='history', document=document)
+
+def fetch_history():
+  resp = client.search(index="history", body={"query": {"match_all": {}}})
+  queries = []
+  for hit in resp["hits"]["hits"]:
+    queries.append(hit["_source"]['query'])
+  return queries

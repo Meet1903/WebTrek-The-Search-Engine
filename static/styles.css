@@ -39,12 +39,12 @@ input[type="text"] {
     box-sizing: border-box;
 }
 
-.scraper-button-container {
+.button-1-container {
     position: relative;
     text-align: center;
 }
 /* 
-.scraper-button {
+.button-1 {
     background-color: #4CAF50;
     color: white;
     border: none;
@@ -57,16 +57,16 @@ input[type="text"] {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 } 
 
-.scraper-button:hover {
+.button-1:hover {
     background-color: #45a049;
 }
 
-.scraper-button:active {
+.button-1:active {
     background-color: #3e8e41;
     box-shadow: none;
 }*/
 
-.scraper-button {
+.button-1 {
   align-items: center;
   appearance: none;
   background-color: #FCFCFD;
@@ -97,16 +97,16 @@ input[type="text"] {
   font-size: 18px;
 }
 
-.scraper-button:focus {
+.button-1:focus {
   box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
 }
 
-.scraper-button:hover {
+.button-1:hover {
   box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
   transform: translateY(-2px);
 }
 
-.scraper-button:active {
+.button-1:active {
   box-shadow: #D6D6E7 0 3px 7px inset;
   transform: translateY(2px);
 }

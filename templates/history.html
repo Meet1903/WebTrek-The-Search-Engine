@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebTrek - History</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h2>WebTrek - History</h2>
+    <div class="button-1-container">
+    <a href="{{ url_for('index') }}"><button class="button-1">Back to Search Engine</button></a>
+    </div>
+    <label for="data">Searched queries: {{history}}</label><br>
+</body>
+</html>

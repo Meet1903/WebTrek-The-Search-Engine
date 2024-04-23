@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 from data_scrapper import get_urls, save_html, delete_files_in_folder
-from elastic_logics import insert_data_elastic, search_on_elastic
+from elastic_logics import insert_data_elastic, search_on_elastic, insert_query_history, fetch_history
 from prepare_query import prepare_query
 import os
 
@@ -17,6 +17,7 @@ def index():
 def search():
     if request.method == "POST":
         query = request.form.get("query")
+        insert_query_history(query)
         clearn_query = prepare_query(query)
         urls = search_on_elastic(clearn_query)
         final_words = clearn_query
@@ -40,6 +41,11 @@ def scrape():
         insert_data_elastic(folder)
         delete_files_in_folder(folder)
         return "Scraping completed successfully!" 
+
+@app.route("/history")
+def history():
+    history = fetch_history()
+    return render_template("history.html", history=history)
 
 if __name__ == "__main__":
     app.run(debug=True)
