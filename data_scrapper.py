@@ -24,27 +24,33 @@ def retrieve_domain_names(file_path):
 def unearth_urls(domain):
     urls = set()
     parsed_domain = urlparse(domain)
-    response = requests.get(domain)
-    soup = BeautifulSoup(response.content, 'html.parser')
-    for link in soup.find_all('a'):
-        if 'href' in link.attrs:
-            url = link.attrs['href']
-            # print(domain, url)
-            if any(ignored_domain in url for ignored_domain in ignored_domains):
-                continue
-            if url.startswith('/'):
-                urls.add(parsed_domain.scheme + "://" + parsed_domain.netloc + url)
-            if url.startswith(domain):
-                urls.add(url)
+    try:
+        response = requests.get(domain)
+        response.raise_for_status()
+        soup = BeautifulSoup(response.content, 'html.parser')
+        for link in soup.find_all('a'):
+            if 'href' in link.attrs:
+                url = link.attrs['href']
+                # print(domain, url)
+                if any(ignored_domain in url for ignored_domain in ignored_domains):
+                    continue
+                if url.startswith('/'):
+                    urls.add(parsed_domain.scheme + "://" + parsed_domain.netloc + url)
+                if url.startswith(domain):
+                    urls.add(url)
+    except requests.exceptions.RequestException as e:
+        print("An error occurred while fetching the URL:", e)
     return list(urls)
 
 def get_urls(domains):
     counter = 0 
-    while counter < len(domains) and len(set(domains)) < 10000:
-        if any(ignored_domain in domains[counter] for ignored_domain in ignored_domains):
+    visited_domains = []
+    while counter < len(domains) and len(set(domains)) < 500:
+        if any(ignored_domain in domains[counter] for ignored_domain in ignored_domains) or domains[counter] in visited_domains:
             counter += 1
             continue
         domains.extend(unearth_urls(domains[counter]))
+        visited_domains.append(domains)
         counter += 1
     print(domains)
     domains = set(domains)
