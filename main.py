@@ -19,9 +19,10 @@ def search():
         query = request.form.get("query")
         insert_query_history(query)
         clearn_query = prepare_query(query)
-        urls = search_on_elastic(clearn_query)
-        final_words = clearn_query
-    return render_template("index.html", urls=urls, words= final_words)
+        urls, titles = search_on_elastic(clearn_query)
+        # final_words = clearn_query
+        title_url_pairs = zip(titles, urls)
+    return render_template("index.html", title_url_pairs =title_url_pairs)
 
 @app.route("/scrapper")
 def scrapper():
@@ -30,7 +31,6 @@ def scrapper():
 @app.route("/scrapper", methods=["POST"])
 def scrape():
     if request.method == "POST":
-        # Get form data
         domains = request.form.get("url")
         folder = request.form.get("path")
         domains = domains.replace(" ", "").split(",")

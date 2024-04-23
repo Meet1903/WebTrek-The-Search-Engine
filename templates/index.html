@@ -16,6 +16,26 @@
         <button type="submit" id="search" class="submit-button">Search</button>
     </form>
     <!-- <label for="words">Final words: {{words}}</label><br> -->
-    <label for="data">URLs: {{urls}}</label><br>
+    <!-- <label for="data">URLs: {{urls}}</label><br> -->
+    <div class="query-history">
+        <table style="border-spacing: 1px;">
+            <thead>
+                <tr>
+                    <th>Search results</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for title, url in title_url_pairs %}
+                <tr>
+                    <td style="padding: 0px;">
+                        <ul style="margin: 1px;">
+                            <li><a href="{{ url }}" target="_blank">{{ title }} ({{ url}})</a></li>
+                        </ul>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
