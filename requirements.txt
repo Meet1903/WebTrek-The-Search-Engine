@@ -1,0 +1,6 @@
+elasticsearch
+warnings
+bs4
+requests
+flask
+re

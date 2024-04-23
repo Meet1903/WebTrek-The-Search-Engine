@@ -23,6 +23,12 @@ client = Elasticsearch(
 ```
 Ensure to replace YOUR_API_KEY_HERE with the actual API key obtained in the previous step.
 
+4. **Install Dependencies:** Install all dependencies using below command:
+
+```
+pip install -r requirements.txt
+```
+
 By following these setup instructions, you'll be ready to utilize ElasticSearch for WebTrek seamlessly.
 
 ## Data Gathering
