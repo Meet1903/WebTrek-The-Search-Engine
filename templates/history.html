@@ -33,6 +33,16 @@
             </tbody>
         </table>
     </div>
+    <div class="pagination">
+        <div class="button-1-container" style="margin-top: 20px;">
+            {% if prev_page %}
+                <a href="{{ url_for('history', page=current_page - 1) }}"><button class="button-1"><< Previous</button></a>
+            {% endif %}
+            {% if next_page %}
+                <a href="{{ url_for('history', page=current_page + 1) }}"><button class="button-1">Next >></button></a>
+            {% endif %}
+        </div>
+    </div>
     {% else %}
     <p style="text-align: -webkit-center;">No query history available.</p>
     {% endif %}

@@ -44,9 +44,23 @@ def scrape():
 
 @app.route("/history")
 def history():
-    queries, timestamps = fetch_history()
+    next_page = False
+    prev_page = False
+    current_page = 1
+    page = request.args.get('page')
+    if page:
+        current_page = int(page)
+
+    queries, timestamps = fetch_history(page_number=current_page)
     history = zip(queries, timestamps)
-    return render_template("history.html", history=history)
+
+    is_data_on_next_page, _ = fetch_history(page_number=current_page + 1)
+    
+    if is_data_on_next_page:
+        next_page = True
+    if current_page > 1:
+        prev_page = True
+    return render_template("history.html", history=history, current_page = current_page, next_page=next_page, prev_page = prev_page)
 
 @app.route("/history", methods=["POST"])
 def clean_history():
