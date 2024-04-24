@@ -40,7 +40,7 @@ def extract_text_from_html_file(file_path):
             else:
                 id = url
             document = {
-                "_index": "newsearch",
+                "_index": "websearch",
                 "_id": id,
                 "_source": {
                     "title": title,
