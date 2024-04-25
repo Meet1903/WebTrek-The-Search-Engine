@@ -32,15 +32,63 @@ pip install -r requirements.txt
 By following these setup instructions, you'll be ready to utilize ElasticSearch for WebTrek seamlessly.
 
 ## Data Gathering
-
+I have used two ways to collect data:
+1. Using Scrapper
+2. Using Common-Crawl
+### Using Scrapper
+---
 
 Navigate to the "Go to Scraper" button and click on it to access the Scraper component of WebTrek. Here, you'll have the opportunity to input the webpage or domain you wish to include in your search engine's index. Additionally, you'll be prompted to specify the path where temporary HTML files will be stored on your local machine.
 
 Once you've provided this information, simply click on the "Scrape" button to initiate the scraping process. WebTrek will then gather the data from the specified webpage/domain and store it in your ElasticSearch node. Once completed, the scraped data will be seamlessly integrated into your search engine, ready for utilization.
 
+### Using Common-Crawl
+---
+1. Go to Common-Crawl page using [link](https://commoncrawl.org/get-started). Choose a Crawl of your choice.
+
+![Image](/content/images/common-crawl-home.png)
+
+2. Download warc.paths.gz.
+
+![Image](/content/images/common-crawl-warc.png)
+
+3. To unzip the file, execute the following command:
+```
+gunzip warc.paths.gz
+```
+This command will extract the warc.paths file. You can open it using any text editor. The file contains paths to the WARC files. For example:
+```
+crawl-data/CC-MAIN-2024-10/segments/1707947473347.0/warc/CC-MAIN-20240220211055-20240221001055-00000.warc.gz
+crawl-data/CC-MAIN-2024-10/segments/1707947473347.0/warc/CC-MAIN-20240220211055-20240221001055-00001.warc.gz
+```
+4. Download these files using below command:
+```
+wget https://data.commoncrawl.org/PATH_FROM_WARC.PATHS_FILE
+```
+Example:
+```
+wget https://data.commoncrawl.org/crawl-data/CC-MAIN-2024-10/segments/1707947473347.0/warc/CC-MAIN-20240220211055-20240221001055-00000.warc.gz
+```
+
+Before running common-crawl-prepare.py, ensure you update the following variables:
+
+1. **Path to WARC File**:
+- Update 'Path_To_File/FileName1.warc' to the actual path where the WARC file is located after executing the previous steps.
+2. **Temporary HTML Files Storage Folder**:
+- Update 'Path_To_Folder' to the desired folder path where you want to temporarily store the HTML files.
+After updating these variables, proceed with executing common-crawl-prepare.py for seamless processing of Common Crawl data.
+
+```
+warc_file_paths = [Path_To_File/FileName1.warc]
+folder_path = 'Path_To_Folder'
+```
+After updating these variables, proceed with executing **common-crawl-prepare.py** for seamless processing of Common Crawl data.
+```
+python3 common-crawl-prepare.py
+```
 
 ## Run the program
 Once the setup is done. Run main.py using below command.
 ```
-python main.py
+python3 main.py
 ```
