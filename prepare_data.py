@@ -4,6 +4,7 @@ import os
 import re
 from urllib.parse import urlparse
 import hashlib
+import datetime
 
 def generate_short_id(url):
     hash_object = hashlib.md5(url.encode())
@@ -39,6 +40,8 @@ def extract_text_from_html_file(file_path):
                 id = generate_short_id(url)
             else:
                 id = url
+            if not id:
+                id = datetime.datetime.now()
             document = {
                 "_index": "websearch",
                 "_id": id,
