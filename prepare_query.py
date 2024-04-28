@@ -16,7 +16,7 @@ def remove_unnecessary_words(query):
     return ' '.join(query)
 
 def prepare_query(query):
-    query = query.lower()
+    # query = query.lower()
     query = re.sub(r'[^a-zA-Z0-9]+', ' ', query)
     query = query.strip()
     query = remove_unnecessary_words(query)
