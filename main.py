@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 from data_scrapper import get_urls, save_html, delete_files_in_folder
 from elastic_logics import insert_data_elastic, search_on_elastic, insert_query_history, fetch_history, delete_all_history
 from prepare_query import prepare_query
+from ranking_algorithm import initiate_ranking_algorithm
 import os
 
 app = Flask(__name__)
@@ -11,18 +12,49 @@ def is_valid_url(url):
 
 @app.route("/")
 def index():
-    return render_template("index.html", data=' ')
+    # return render_template("index.html", data=' ')
+    return render_template("index.html")
 
-@app.route("/", methods=["POST"])
+# @app.route("/", methods=["POST"])
+# def search():
+#     if request.method == "POST":
+#         query = request.form.get("query")
+#         insert_query_history(query)
+#         clearn_query = prepare_query(query)
+#         urls, titles = search_on_elastic(clearn_query)
+#         # final_words = clearn_query
+#         title_url_pairs = zip(titles, urls)
+#     return render_template("index.html", title_url_pairs =title_url_pairs)
+
+@app.route('/search', methods=['POST', 'GET'])
 def search():
-    if request.method == "POST":
-        query = request.form.get("query")
-        insert_query_history(query)
-        clearn_query = prepare_query(query)
-        urls, titles = search_on_elastic(clearn_query)
-        # final_words = clearn_query
-        title_url_pairs = zip(titles, urls)
-    return render_template("index.html", title_url_pairs =title_url_pairs)
+    next_page = False
+    prev_page = False
+    current_page = 1
+    page = request.args.get('page')
+    if page:
+        current_page = int(page)
+    if request and request.form and request.form['query']:
+        original_query = request.form['query']
+        insert_query_history(original_query)
+    else:
+        original_query = request.args.get('query')
+    # original_query = request.form['query']
+    query = original_query.lower()
+    clearn_query = prepare_query(query)
+    ranked_result = search_on_elastic(clearn_query, page_number=current_page)
+
+    is_data_on_next_page = search_on_elastic(clearn_query, page_number=current_page)
+    
+    if is_data_on_next_page:
+        next_page = True
+    if current_page > 1:
+        prev_page = True
+
+    results = []
+    for doc in ranked_result:
+        results.append({'title': doc['title'], 'domain': doc['domain'], 'url': doc['url'], 'snippet': doc['summary']})
+    return render_template('results.html', query=query, results=results, current_page = current_page, next_page=next_page, prev_page = prev_page)
 
 @app.route("/scrapper")
 def scrapper():
