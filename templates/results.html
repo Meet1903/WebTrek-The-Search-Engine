@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+<body>
+    <div class="button-1-container">
+        <a href="{{ url_for('scrapper') }}"><button class="button-1">Go to Scraper</button></a>
+        <a href="{{ url_for('history') }}"><button class="button-1">History</button></a>
+    </div>
+    <div class="container">
+        <div class="header">
+            <h1>
+                <a href="{{ url_for('index') }}" class="title-name"><span class="blue">Web</span><span class="red">Tr</span><span class="yellow">e</span><span class="green">k</span></a>
+            </h1>
+        </div>
+        <!-- Search form -->
+        <div class="search-box">
+            <form action="/search" method="POST">
+                <input type="text" name="query" class="search-bar" placeholder="Search" required>
+                <input type="submit" value="Search" class="search-button">
+            </form>
+        </div>
+
+        <h2>Search Results for "{{ query }}"</h2>
+        <div class="results-list">
+            {% if results %}
+                {% for result in results %}
+                <div class="result-item">
+                    <a href="{{ result.url }}" target="_blank" class="result-title">{{ result.title }}</a>
+                    <br>
+                    <span class="result-domain">{{ result.domain }}</span>
+                    <p class="result-snippet">{{ result.snippet }}</p>
+                </div>
+                {% endfor %}
+            <div class="pagination">
+                <div class="button-2-container" style="margin-top: 20px;">
+                    {% if prev_page %}
+                        <a href="{{ url_for('search', page=current_page - 1, query=query) }}"><button class="button-2"><< Previous</button></a>
+                    {% endif %}
+                    {% if next_page %}
+                        <a href="{{ url_for('search', page=current_page + 1, query=query) }}"><button class="button-2">Next >></button></a>
+                    {% endif %}
+                </div>
+            </div>
+            {% else %}
+                <p>No results found for "{{ query }}".</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
