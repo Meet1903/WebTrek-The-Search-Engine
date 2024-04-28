@@ -5,18 +5,22 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <h2>WebTrek - The Web Scraper</h2>
-    <div class="button-1-container">
+    <div class="header">
+        <h1>
+            <a href="{{ url_for('index') }}" class="title-name"><span class="blue">Web</span><span class="red">Tr</span><span class="yellow">e</span><span class="green">k</span></a>
+        </h1>
+    </div>
+    <div class="button-2-container">
         <a href="{{ url_for('index') }}"><button class="button-1">Back to Search Engine</button></a>
     </div>
     <div class="loader" id="loader"></div>
     <div class="container" id="container"></div>
     <form id="scraping-form" method="post" class="regular-form">
         <label for="url">Enter comma separated domains:</label><br>
-        <input type="text" id="url" name="url" required><br>
+        <input type="text" id="url" name="url" class="form-text" style="margin-bottom: 20px;" required><br>
         <label for="path">Enter destination folder path:</label><br>
-        <input type="text" id="path" name="path" required><br>
-        <input type="hidden" id="folder_path" name="folder_path">
+        <input type="text" id="path" name="path" class="form-text" style="margin-bottom: 20px;" required><br>
+        <input type="hidden" id="folder_path" name="folder_path" class="form-text">
 
         <button type="submit" id="scrapper" class="submit-button">Scrape</button>
     </form>
@@ -33,5 +37,6 @@
         }
 
     </script>
+    
 </body>
 </html>
