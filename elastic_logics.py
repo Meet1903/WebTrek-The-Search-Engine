@@ -5,8 +5,9 @@ from bs4 import BeautifulSoup
 import os
 from prepare_data import read_html_files
 import datetime
+from ranking_algorithm import ranked_search_result
 
-history_page_data_limit = 10
+page_data_limit = 10
 
 warnings.filterwarnings("ignore", message="urllib3 v2 only supports OpenSSL 1.1.1+")
 warnings.filterwarnings("ignore", message="Unverified HTTPS request is being made")
@@ -18,22 +19,32 @@ client = Elasticsearch(
 )
 
 
-def search_on_elastic(clean_query):
+def search_on_elastic(clean_query, page_number = 1):
+  page_size = page_data_limit
+  from_offset = (page_number - 1) * page_size
   words = clean_query.split(' ')
   query_with_and = " AND ".join(words)
   query_body = {
      "size": 25, 
-     "query": {"query_string": {"query": query_with_and}}
+     "query": {"query_string": {"query": query_with_and}},
+     "from": from_offset,
+      "size": page_size
   }
   resp = client.search(index="websearch", body=query_body)
-  urls = []
-  titles = []
+  elastic_results = []
   for hit in resp["hits"]["hits"]:
-    print(hit["_source"]['url'])
-    urls.append(hit["_source"]['url'])
-    titles.append(hit["_source"]['title'])
-  return urls, titles
-
+    # print(hit["_source"]['url'])
+    document = {
+       "title": hit["_source"]['title'],
+       "domain": hit["_source"]['domain'],
+       "url": hit["_source"]['url'],
+       "content": hit["_source"]['content']
+    }
+    elastic_results.append(document)
+  # print(elastic_results)
+  ranked_result = ranked_search_result(elastic_results, clean_query)
+  # return urls, titles
+  return ranked_result
 
 def insert_data_elastic(folder):
   path_to_HTML_files = folder
@@ -54,7 +65,7 @@ def insert_query_history(query):
   client.index(index='history', document=document)
 
 def fetch_history(page_number = 1):
-  page_size = history_page_data_limit
+  page_size = page_data_limit
   from_offset = (page_number - 1) * page_size
 
   query_body = {
@@ -82,7 +93,7 @@ def delete_all_history():
   
 def change_limit():
   try:
-    response = client.indices.put_settings(index='websearch', body={"index": {"max_result_window": 20000}})
+    response = client.indices.put_settings(index='websearch', body={"index": {"max_result_window": 1000000}})
     if response.get("acknowledged"):
         print("Index settings updated successfully.")
     else:
