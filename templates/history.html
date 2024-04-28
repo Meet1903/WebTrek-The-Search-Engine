@@ -5,41 +5,44 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <h2>WebTrek - History</h2>
-    <div class="button-1-container">
-        <a href="{{ url_for('index') }}"><button class="button-1">Back to Search Engine</button></a>
+    <div class="header">
+        <h1>
+            <a href="{{ url_for('index') }}" class="title-name"><span class="blue">Web</span><span class="red">Tr</span><span class="yellow">e</span><span class="green">k</span></a>
+        </h1>
+    </div>
+    <div class="button-2-container">
+        <a href="{{ url_for('index') }}"><button class="button-2">Back to Search Engine</button></a>
         <form method="post">
-            <button type="submit" class="button-1">Clean History</button>
+            <button type="submit" class="button-2">Clean History</button>
         </form>
     </div>
     {% if history %}
     <div class="query-history">
-        <table style="border-spacing: 1px;">
+        <h2 class="history-title">Query History</h2>
+        <table>
             <thead>
                 <tr>
-                    <th>Query History</th>
+                    <th>Query</th>
+                    <th>Timestamp</th>
                 </tr>
             </thead>
             <tbody>
                 {% for query, timestamp in history %}
                 <tr>
-                    <td style="padding: 0px;">
-                        <ul style="margin: 1px;">
-                            <li>{{ query }} - {{timestamp}}</li>
-                        </ul>
-                    </td>
+                    <td > {{query}}</td>
+                    <td > {{timestamp}}</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
     <div class="pagination">
-        <div class="button-1-container" style="margin-top: 20px;">
+        <div class="button-2-container" style="margin-top: 20px;">
             {% if prev_page %}
-                <a href="{{ url_for('history', page=current_page - 1) }}"><button class="button-1"><< Previous</button></a>
+                <a href="{{ url_for('history', page=current_page - 1) }}"><button class="button-2"><< Previous</button></a>
             {% endif %}
             {% if next_page %}
-                <a href="{{ url_for('history', page=current_page + 1) }}"><button class="button-1">Next >></button></a>
+                <a href="{{ url_for('history', page=current_page + 1) }}"><button class="button-2">Next >></button></a>
             {% endif %}
         </div>
     </div>
