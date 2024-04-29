@@ -18,15 +18,15 @@ body, html {
   font-family: "JetBrains Mono",monospace;
 }
 .container {
-  width: 80%;
+  width: 100%;
   max-width: 850px;
   margin: 0 auto;
-  padding: 20px;
+  padding-top: 0.1px;
 }
-.blue { color: #4285f4; } /* blue */
-.red { color: #ea4335; } /* red */
-.yellow { color: #fbbc05; } /* yellow */
-.green { color: #34a853; } /* green */
+.blue { color: #4285f4; } 
+.red { color: #ea4335; } 
+.yellow { color: #fbbc05; }
+.green { color: #34a853; }
 .results-container,
 .flex-container {
   height: 100%;
@@ -57,11 +57,7 @@ body, html {
   box-shadow: none;
   font-family: "JetBrains Mono",monospace;
   font-size: 22px;
-}
-.search-bar::placeholder {
-  font-family: "JetBrains Mono",monospace;
-  font-size: 22px;
-  padding-left: 10px;
+  padding-left: 20px;
 }
 .search-button {
   width: 135px;
@@ -137,7 +133,7 @@ h2 {
 .button-1-container {
   position: absolute;
   text-align: right;
-  display: ruby-text;
+  display: flow;
   margin-top: 30px;
   right: 10px;
 }
