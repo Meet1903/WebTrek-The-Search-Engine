@@ -19,7 +19,7 @@ body, html {
 }
 .container {
   width: 80%;
-  max-width: 650px;
+  max-width: 850px;
   margin: 0 auto;
   padding: 20px;
 }
@@ -37,8 +37,7 @@ body, html {
   flex-direction: column;
   justify-content: center;
 }
-.search-box {
-  width: 482px; 
+.search-box { 
   display: flex;
   justify-content: center;
   margin-bottom: 30px; 
@@ -49,7 +48,7 @@ body, html {
   margin-bottom: 20px;
 }
 .search-bar {
-  width: 800px;
+  width: 850px;
   height: 40px; 
   padding: 7px;
   margin-bottom: 20px;
