@@ -31,6 +31,8 @@ pip install -r requirements.txt
 
 By following these setup instructions, you'll be ready to utilize ElasticSearch for WebTrek seamlessly.
 
+5. **Download GoogleNews Vectors:** Use [link](https://drive.google.com/file/d/14vA7pvQ-HLbNR9NyYg8TNc6xiaCU5PJ4/view?usp=sharing) to download GoogleNews-vectors-negative300.bin file required for the ranking part.
+
 ## Data Gathering
 I have used two ways to collect data:
 1. Using Scrapper
