@@ -55,17 +55,24 @@ body, html {
   border: 1px solid #dfe1e5;
   border-radius: 22px; 
   box-shadow: none;
-  font-size: 16px;
+  font-family: "JetBrains Mono",monospace;
+  font-size: 22px;
+}
+.search-bar::placeholder {
+  font-family: "JetBrains Mono",monospace;
+  font-size: 22px;
+  padding-left: 10px;
 }
 .search-button {
   width: 135px;
   height: 36px;
   background-color: #f8f9fa;
   border: 1px solid #f8f9fa;
-  border-radius: 4px;
+  border-radius:22px;
   color: #5f6368;
   margin-right: 4px;
-  font-size: 14px;
+  font-size: 22px;
+  font-family: "JetBrains Mono",monospace;
   cursor: pointer;
 }
 .search-button:hover {
