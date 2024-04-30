@@ -51,7 +51,6 @@ def my_relevance_score(page_text, query):
     query_embedding = get_embedding(query_tokens)
     return cosine_similarity(page_embedding, query_embedding)
 
-# Function to find the sentence with keywords in chunks of text
 def find_sentence_in_chunks(content, query, chunk_size=300):
     # query_tokens = word_tokenize(query.lower())
     query_tokens = query.lower().split(' ')
@@ -65,15 +64,21 @@ def find_sentence_in_chunks(content, query, chunk_size=300):
     for chunk in chunks:
         # sentence_tokens = word_tokenize(chunk.lower())
         sentence_tokens = chunk.lower().split(' ')
-        matched_words = sum(1 for word in sentence_tokens if word in query_tokens)
-        matches=[word for word in sentence_tokens if word in query_tokens]
-        
+        # matched_words = sum(1 for word in sentence_tokens if word in query_tokens)
+        matched_words = len(set(sentence_tokens) & set(query_tokens))
         
         if matched_words > max_matched_words:
             max_matched_words = matched_words
             best_sentence = chunk
-            
-    return best_sentence
+    
+    result = ""
+    for word in best_sentence.split(" "):
+        if word.lower() in query_tokens:
+            result += f"<strong>{word}</strong> "
+        else:
+            result += f"{word} "
+    result = "... " + result + " ..."
+    return result
 
 def page_rank(pages, query):
     scores = []

@@ -33,7 +33,7 @@
                     <a href="{{ result.url }}" target="_blank" class="result-title">{{ result.title }}</a>
                     <br>
                     <span class="result-domain">{{ result.domain }}</span>
-                    <p class="result-snippet">{{ result.snippet }}</p>
+                    <p class="result-snippet">{{ result.snippet | safe }}</p>
                 </div>
                 {% endfor %}
             <div class="pagination">
