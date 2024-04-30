@@ -44,7 +44,7 @@ def search():
     clearn_query = prepare_query(query)
     ranked_result = search_on_elastic(clearn_query, page_number=current_page)
 
-    is_data_on_next_page = search_on_elastic(clearn_query, page_number=current_page)
+    is_data_on_next_page = search_on_elastic(clearn_query, page_number=current_page + 1)
     
     if is_data_on_next_page:
         next_page = True
@@ -54,7 +54,7 @@ def search():
     results = []
     for doc in ranked_result:
         results.append({'title': doc['title'], 'domain': doc['domain'], 'url': doc['url'], 'snippet': doc['summary']})
-    return render_template('results.html', query=query, results=results, current_page = current_page, next_page=next_page, prev_page = prev_page)
+    return render_template('results.html', query=original_query, results=results, current_page = current_page, next_page=next_page, prev_page = prev_page)
 
 @app.route("/scrapper")
 def scrapper():
