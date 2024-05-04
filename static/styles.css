@@ -311,6 +311,11 @@ label {
 }
 
 .webtrek-logo{
-  height: 200px;
+  height: 250px;
   width: 950px;
+}
+
+.webtrek-font{
+  height: 150px;
+  width: 700px;
 }
