@@ -4,3 +4,8 @@ bs4
 requests
 flask
 re
+scipy==1.9.1
+gensim==4.3.2
+numpy
+urllib
+hashlib
