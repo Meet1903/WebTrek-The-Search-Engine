@@ -5,6 +5,9 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
+    <video autoplay loop muted>
+        <source src="/static/background-video.mp4" type="video/mp4">
+    </video>
     <div class="button-1-container">
         <a href="{{ url_for('scrapper') }}"><button class="button-1">Go to Scraper</button></a>
         <a href="{{ url_for('history') }}"><button class="button-1">History</button></a>
