@@ -45,6 +45,7 @@ Navigate to the "Go to Scraper" button and click on it to access the Scraper com
 Once you've provided this information, simply click on the "Scrape" button to initiate the scraping process. WebTrek will then gather the data from the specified webpage/domain and store it in your ElasticSearch node. Once completed, the scraped data will be seamlessly integrated into your search engine, ready for utilization.
 
 ![Image](/content/images/scrapper-image-1.png)
+
 ![Image](/content/images/scrapper-image-2.png)
 
 ### Using Common-Crawl
