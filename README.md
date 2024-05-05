@@ -31,7 +31,7 @@ pip install -r requirements.txt
 
 By following these setup instructions, you'll be ready to utilize ElasticSearch for WebTrek seamlessly.
 
-5. **Download GoogleNews Vectors:** Use [link](https://drive.google.com/file/d/14vA7pvQ-HLbNR9NyYg8TNc6xiaCU5PJ4/view?usp=sharing) to download GoogleNews-vectors-negative300.bin file required for the ranking part.
+5. **Download GoogleNews Vectors:** Use [link](https://drive.google.com/file/d/14vA7pvQ-HLbNR9NyYg8TNc6xiaCU5PJ4/view?usp=sharing) to download GoogleNews-vectors-negative300.bin file required for the ranking part. Place it under the main directory.
 
 ## Data Gathering
 I have used two ways to collect data:
@@ -43,6 +43,9 @@ I have used two ways to collect data:
 Navigate to the "Go to Scraper" button and click on it to access the Scraper component of WebTrek. Here, you'll have the opportunity to input the webpage or domain you wish to include in your search engine's index. Additionally, you'll be prompted to specify the path where temporary HTML files will be stored on your local machine.
 
 Once you've provided this information, simply click on the "Scrape" button to initiate the scraping process. WebTrek will then gather the data from the specified webpage/domain and store it in your ElasticSearch node. Once completed, the scraped data will be seamlessly integrated into your search engine, ready for utilization.
+
+![Image](/content/images/scrapper-image-1.png)
+![Image](/content/images/scrapper-image-2.png)
 
 ### Using Common-Crawl
 ---
