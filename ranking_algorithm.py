@@ -72,11 +72,12 @@ def find_sentence_in_chunks(content, query, chunk_size=300):
             best_sentence = chunk
     
     result = ""
-    for word in best_sentence.split(" "):
-        if word.lower() in query_tokens:
-            result += f"<strong>{word}</strong> "
-        else:
-            result += f"{word} "
+    if best_sentence:
+        for word in best_sentence.split(" "):
+            if word.lower() in query_tokens:
+                result += f"<strong>{word}</strong> "
+            else:
+                result += f"{word} "
     result = "... " + result + " ..."
     return result
 
