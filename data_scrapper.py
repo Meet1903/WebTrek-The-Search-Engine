@@ -45,12 +45,12 @@ def unearth_urls(domain):
 def get_urls(domains):
     counter = 0 
     visited_domains = []
-    while counter < len(domains) and len(set(domains)) < 500:
+    while counter < len(domains) and len(set(domains)) < 30:
         if any(ignored_domain in domains[counter] for ignored_domain in ignored_domains) or domains[counter] in visited_domains:
             counter += 1
             continue
         domains.extend(unearth_urls(domains[counter]))
-        visited_domains.append(domains)
+        visited_domains.append(domains[counter])
         counter += 1
     print(domains)
     domains = set(domains)
@@ -60,7 +60,7 @@ def get_urls(domains):
 def save_html(urls, folder):
     folder_path = folder
     os.makedirs(folder_path, exist_ok=True)
-    for index, url in enumerate(urls[:1000]):
+    for index, url in enumerate(urls):
         if url.startswith("https://") or url.startswith("http://"):
             response = requests.get(url)
             if response.status_code == 200:
