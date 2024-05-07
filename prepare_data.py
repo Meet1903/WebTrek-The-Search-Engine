@@ -27,6 +27,8 @@ def extract_text_from_html_file(file_path):
             domain = urlparse(url).netloc
             if soup.find('h1'):
                 title = soup.find('h1').get_text().strip()
+            elif soup.find('h2'):
+                title = soup.find('h2').get_text().strip()
             else:
                 title = url
             text = soup.get_text()
