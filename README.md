@@ -100,3 +100,15 @@ Once the setup is done. Run main.py using below command.
 ```
 python3 main.py
 ```
+
+## Screenshots
+
+I have already attached screenshots of Main page and Scrapper page above.
+
+
+Result page:
+![Image](/content/images/result-page.png)
+
+
+History page:
+![Image](/content/images/history-page.png)
